@@ -1,0 +1,53 @@
+﻿@model Cart
+@{
+decimal total = 0;
+} 
+
+<h1 class="p-3">Your Cart</h1> 
+
+<div class="grid">
+    <div class="g-col-4">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Vegetarian?</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+      <th scope="col">Toppings</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+
+    @foreach(var item in Model.CartItems)
+    {
+        {total += item.Pizza.FinalPrice * item.Quantity; }
+    
+          <tr>
+          <th scope="row">Cheese Pizza</th>
+          <td>@item.Pizza.isVegetarian</td>
+          <td>@item.Pizza.FinalPrice</td>
+          <td>@item.Quantity</td>
+          <td>@item.Pizza.FinalPrice</td>
+          <td>@item.Pizza.Topping</td>
+          <td>
+          <form method="post" asp-action="Delete" asp-controller="Shopping">
+              <input type="hidden" name="id" value="@item.CartItemId"/>
+              <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+          </td>
+      </tr>
+    }
+   
+
+  </tbody>
+</table>  
+</ul>
+    <tr>
+    <h3>Total: $@total </h3>
+    </tr>
+</div>
+</div>
